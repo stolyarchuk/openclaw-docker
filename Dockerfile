@@ -1,5 +1,7 @@
 FROM ubuntu:26.04
 
+ARG OPENCLAW_VERSION=2026.2.26
+
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install base packages including sudo
@@ -44,7 +46,7 @@ ENV PATH="${BUN_INSTALL}/bin:/home/ubuntu/.npm-global/bin:${PATH}"
 ENV HOMEBREW_NO_ENV_HINTS=1
 
 # Install openclaw from npm (latest stable)
-RUN curl -fsSL --proto '=https' --tlsv1.2 https://openclaw.ai/install.sh | bash -s -- --no-onboard --no-prompt
+RUN curl -fsSL --proto '=https' --tlsv1.2 https://openclaw.ai/install.sh | bash -s -- --no-onboard --no-prompt --version=${OPENCLAW_VERSION}
 
 # Verify installations
 RUN bash -lc 'which openclaw && openclaw --version' && \
@@ -60,4 +62,4 @@ RUN brew install --quiet gcc && \
 SHELL ["/bin/bash", "-lc"]
 
 # Default command
-CMD ["node", "openclaw.mjs", "gateway", "--allow-unconfigured"]
+CMD ["openclaw", "gateway", "--allow-unconfigured"]

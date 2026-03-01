@@ -35,3 +35,4 @@ secrets/
 *.tar.gz
 dist/
 build/
+install.sh
