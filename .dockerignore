@@ -1,0 +1,50 @@
+# Version Control
+.git/
+.gitignore
+.gitattributes
+
+# Documentation (not needed in image)
+README.md
+*.md
+docs/
+
+# CI/CD
+.github/
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+.vim/
+*.sublime-project
+*.sublime-workspace
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+docker-compose.override.yml
+*.log
+
+# Secrets & Config
+*.env
+.env*
+secrets/
+*.key
+*.pem
+
+# Build Artifacts
+*.tar
+*.tar.gz
+dist/
+build/
+node_modules/
