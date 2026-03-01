@@ -35,15 +35,12 @@ ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}
 
 # Install Bun
 RUN curl -fsSL https://bun.sh/install | bash && \
-    # echo 'export BUN_INSTALL="$HOME/.bun"' >> /home/ubuntu/.bashrc && \
-    # echo 'export PATH="$BUN_INSTALL/bin:$PATH"' >> /home/ubuntu/.bashrc && \
     echo 'export BUN_INSTALL="$HOME/.bun"' >> /home/ubuntu/.profile && \
     echo 'export PATH="$BUN_INSTALL/bin:$PATH"' >> /home/ubuntu/.profile
 
 # Add Bun to PATH for subsequent commands
 ENV BUN_INSTALL="/home/ubuntu/.bun"
-ENV PATH="${BUN_INSTALL}/bin:${PATH}"
-ENV PATH="/home/ubuntu/.npm-global/bin:$PATH"
+ENV PATH="${BUN_INSTALL}/bin:/home/ubuntu/.npm-global/bin:${PATH}"
 ENV HOMEBREW_NO_ENV_HINTS=1
 
 # Install openclaw from npm (latest stable)
@@ -60,8 +57,7 @@ RUN brew install --quiet gcc && \
     brew install --quiet uv && \
     bun install -g @tobilu/qmd
 
-# Set default shell to bash with login
-SHELL ["/bin/bash", "-l", "-c"]
+SHELL ["/bin/bash", "-lc"]
 
 # Default command
-CMD ["/bin/bash", "-l"]
+CMD ["node", "openclaw.mjs", "gateway", "--allow-unconfigured"]
