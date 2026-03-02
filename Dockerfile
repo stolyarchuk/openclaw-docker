@@ -57,6 +57,7 @@ RUN brew install --quiet gcc && \
     brew install --quiet cmake && \
     brew install --quiet python@3.12 && \
     brew install --quiet uv && \
+    brew install --quiet gemini-cli && \
     bun install -g @tobilu/qmd
 
 SHELL ["/bin/bash", "-lc"]
