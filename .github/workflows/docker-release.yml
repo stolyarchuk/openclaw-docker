@@ -2,8 +2,6 @@ name: Build and Publish Docker Image
 
 on:
   push:
-    branches: [main, master]
-    # Optionally add tags trigger
     tags: ["v*.*.*"]
   workflow_dispatch:
 
