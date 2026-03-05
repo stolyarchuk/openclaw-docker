@@ -33,10 +33,12 @@ docker run -it openclaw-docker
 
 ### Pre-installed Tools
 
-- **OpenClaw** - AI coding assistant (latest stable)
+- **OpenClaw** - AI coding assistant (v2026.3.2)
+- **Brave Browser** - Privacy-focused web browser
 - **GCC** - GNU Compiler Collection
 - **CMake** - Cross-platform build system
 - **Python 3.12** - With UV package installer
+- **Gemini CLI** - Interactive CLI tool
 - **@tobilu/qmd** - Quarto markdown tools
 - **Git, curl, wget** - Essential utilities
 
@@ -48,11 +50,18 @@ docker run -it openclaw-docker
 
 ## Usage Examples
 
+### Run OpenClaw Gateway
+
+```bash
+docker run openclaw-docker
+# Starts OpenClaw gateway with --allow-unconfigured flag
+```
+
 ### Interactive Development
 
 ```bash
-docker run -it openclaw-docker
-# Inside container:
+docker run -it openclaw-docker /bin/bash
+# To use bash instead of the default gateway
 openclaw --version
 python3 --version
 bun --version
@@ -61,13 +70,19 @@ bun --version
 ### Mount Local Project
 
 ```bash
-docker run -it -v $(pwd):/workspace -w /workspace openclaw-docker
+docker run -it -v $(pwd):/workspace -w /workspace openclaw-docker /bin/bash
 ```
 
 ### Run Specific Command
 
 ```bash
 docker run --rm openclaw-docker openclaw --help
+```
+
+### Custom Gateway Configuration
+
+```bash
+docker run -it openclaw-docker openclaw gateway run --help
 ```
 
 ## Building the Image
@@ -92,7 +107,7 @@ docker build -t myregistry/openclaw-docker:v1.0 .
 
 ## Version Management
 
-This image tracks the **latest stable OpenClaw release**. Each build fetches the current version from the official installer.
+This image uses **OpenClaw v2026.3.2**. To update to a newer version, modify the `OPENCLAW_VERSION` ARG in the Dockerfile.
 
 **Recommended tagging strategy**:
 
@@ -109,10 +124,16 @@ Rebuild periodically to incorporate:
 
 The image uses a two-phase user setup:
 
-1. Root installs system packages and creates `ubuntu` user
+1. Root installs system packages (including Brave Browser), creates `ubuntu` user with passwordless sudo, and sets up compile cache
 2. All development tools install as `ubuntu` user to avoid permission issues
 
-This ensures clean separation between system and user-level tools.
+Key environment variables:
+
+- `OPENCLAW_NO_RESPAWN=1` - Prevents OpenClaw from respawning
+- `NODE_COMPILE_CACHE=/var/tmp/openclaw-compile-cache` - Caches compiled Node modules
+- `HOMEBREW_NO_ENV_HINTS=1` - Disables Homebrew hints in output
+
+This ensures clean separation between system and user-level tools while optimizing for OpenClaw execution.
 
 ## Contributing
 
