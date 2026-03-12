@@ -36,7 +36,7 @@ RUN curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.s
 
 # Source Homebrew environment
 ENV BREW_INSTALL="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin"
-ENV PATH="${PATH}:${BREW_INSTALL}"
+ENV PATH="${PATH}:${BREW_INSTALL}:/home/ubuntu/.npm-global/bin"
 ENV HOMEBREW_NO_ENV_HINTS=1
 ENV OPENCLAW_NO_RESPAWN=1
 ENV NODE_COMPILE_CACHE=/var/tmp/openclaw-compile-cache
