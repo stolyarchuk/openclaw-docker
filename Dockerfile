@@ -47,8 +47,7 @@ RUN curl -fsSL --proto '=https' --tlsv1.2 https://openclaw.ai/install.sh | \
 
 # Install additional tools via Homebrew and npm
 RUN brew install --quiet gcc && \
-    brew install --quiet gemini-cli && \
-    npm install -g @tobilu/qmd
+    brew install --quiet gemini-cli
 
 # Default command
 CMD ["openclaw", "gateway", "run", "--allow-unconfigured"]
