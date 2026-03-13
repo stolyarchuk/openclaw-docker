@@ -1,6 +1,6 @@
 FROM ubuntu:26.04
 
-ARG OPENCLAW_VERSION=2026.3.11
+ARG OPENCLAW_VERSION=2026.3.12
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -20,15 +20,6 @@ RUN apt-get update && apt-get install -y \
     python-is-python3 \
     ffmpeg ffmpegthumbnailer \
     && rm -rf /var/lib/apt/lists/*
-
-# Install Brave browser
-RUN curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg \
-    https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg && \
-    echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" \
-    | tee /etc/apt/sources.list.d/brave-browser-release.list && \
-    apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends brave-browser && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
 # Create ubuntu user and configure passwordless sudo
 RUN echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/ubuntu && \
@@ -53,7 +44,9 @@ ENV NODE_COMPILE_CACHE=/var/tmp/openclaw-compile-cache
 
 # Install openclaw from npm (latest stable)
 RUN curl -fsSL --proto '=https' --tlsv1.2 https://openclaw.ai/install.sh | \
-    bash -s -- --no-onboard --no-prompt --version=${OPENCLAW_VERSION}
+    bash -s -- --no-onboard --no-prompt --version=${OPENCLAW_VERSION} && \
+    echo >> /home/ubuntu/.bashrc && \
+    echo "source '/home/ubuntu/.openclaw/completions/openclaw.bash'" >> /home/ubuntu/.bashrc
 
 # Install additional tools via Homebrew and npm
 RUN brew install --quiet gcc && \

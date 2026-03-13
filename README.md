@@ -5,8 +5,8 @@ Production-ready Docker image for [OpenClaw](https://openclaw.ai), an AI coding 
 ## Features
 
 - **Ubuntu 26.04** base image
-- **OpenClaw** pinned stable release (`2026.3.11`)
-- **Multiple package managers**: apt, Homebrew, Bun
+- **OpenClaw** pinned stable release (`2026.3.12`)
+- **Multiple package managers**: apt, Homebrew
 - **Pre-installed toolchain**: GCC, CMake, Python 3, UV
 - **Development tools**: Git, build-essential, curl, wget
 - **Optimized PATH** configuration for seamless tool integration
@@ -29,17 +29,15 @@ docker run -it openclaw-docker
 
 - **apt**: System-level package manager
 - **Homebrew**: `/home/linuxbrew/.linuxbrew` - C/C++ toolchain and applications
-- **Bun**: `~/.bun` - Fast JavaScript runtime and package manager
 
 ### Pre-installed Tools
 
-- **OpenClaw** - AI coding assistant (v2026.3.11)
+- **OpenClaw** - AI coding assistant (v2026.3.12)
 - **GCC** - GNU Compiler Collection
 - **CMake** - Cross-platform build system
 - **Python 3** - With UV package installer
 - **FFmpeg + ffmpegthumbnailer** - Media processing utilities
 - **Gemini CLI** - Interactive CLI tool
-- **@tobilu/qmd** - Quarto markdown tools
 - **Git, curl, wget** - Essential utilities
 
 ### User Configuration
@@ -64,7 +62,7 @@ docker run -it openclaw-docker /bin/bash
 # To use bash instead of the default gateway
 openclaw --version
 python3 --version
-bun --version
+brew --version
 ```
 
 ### Mount Local Project
@@ -107,7 +105,7 @@ docker build -t myregistry/openclaw-docker:v1.0 .
 
 ## Version Management
 
-This image uses **OpenClaw v2026.3.11** (pinned via `OPENCLAW_VERSION`). To update to a newer version, modify the `OPENCLAW_VERSION` ARG in the Dockerfile.
+This image uses **OpenClaw v2026.3.12** (pinned via `OPENCLAW_VERSION`). To update to a newer version, modify the `OPENCLAW_VERSION` ARG in the Dockerfile.
 
 **Recommended tagging strategy**:
 
